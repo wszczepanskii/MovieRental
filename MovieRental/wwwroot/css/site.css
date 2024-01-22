@@ -1,0 +1,92 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #141414;
+}
+
+.movie-container {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.movie-container .movie-card {
+    padding: 2%;
+    margin: 2%;
+    /*flex-basis: 16%;*/
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(244, 244, 240, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    transition: box-shadow .3s;
+    /*cursor: pointer;*/
+}
+
+.movie-card .movie-card__info{
+    color: white;
+}
+
+.movie-card:hover {
+    box-shadow: rgba(250, 250, 250, 0.1) 0px 18px 30px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.movie-container img{
+    margin-bottom: 1rem;
+}
+
+.navbar-jc{
+    justify-content: end;
+}
+
+.navbar-title {
+    color: #E50914;
+}
+
+.movie-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.movie-details .movie-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+}
+
+.movie-info .movie-info__text{
+    font-size: 18px;
+}
+
+.rent-btn {
+    width: 100%;
+    padding: 10px 0 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #E50914;
+    color: white;
+    transition: background-color .3s;
+}
+
+.rent-btn:hover {
+    background-color: #c40a13;
+}

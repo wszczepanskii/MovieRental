@@ -1,0 +1,22 @@
+﻿@model MovieRental.Models.Movie;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="movie-details text-white">
+    <div class="movie-details__img" style="height: 100%;">
+      <img src=@Html.DisplayFor(model => model.ImageUri) height="500" width="400"/>
+    </div>
+    <div class="movie-info">
+        <h2 class="movie-info__h">Tytuł</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Name)</p>
+        <h2 class="movie-info__h">Gatunek</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Genre)</p>
+        <h2 class="movie-info__h">Cena wypożyczenia</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Price) zł</p>
+        <h2 class="movie-info__h">Data premiry</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.ReleaseDate)</p>
+        <button class="rent-btn">Wypożycz</button>
+    </div>
+</section>
