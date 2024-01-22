@@ -7,10 +7,6 @@
     "mssql2": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:LoginContextConnection"
-    },
-    "mssql3": {
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:MovieRentalDbContextConnection"
     }
   }
 }
