@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using MovieRental.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieRental.Areas.Identity.Data;
 
 namespace MovieRental.Data
 {
-    public class MovieRentalContext : DbContext
+    public class MovieRentalContext : LoginContext
     {
         public MovieRentalContext (DbContextOptions<MovieRentalContext> options)
             : base(options)
