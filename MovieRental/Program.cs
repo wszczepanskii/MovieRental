@@ -1,15 +1,25 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieRental.Data;
 using MovieRental.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<MovieRentalContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MovieRentalContext") ?? throw new InvalidOperationException("Connection string 'MovieRentalContext' not found.")));
-
-
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<MovieRentalContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MovieRentalContext") ?? throw new InvalidOperationException("Connection string 'MovieRentalContext' not found.")));
+
+builder.Services.AddDefaultIdentity<AppUser>(
+    options => options.SignIn.RequireConfirmedAccount = true
+)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<MovieRentalContext>();
+
+//builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<MovieRentalContext>().AddDefaultTokenProviders();
+//builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
 
 var app = builder.Build();
 
@@ -34,10 +44,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Movies1}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

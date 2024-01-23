@@ -1,21 +1,33 @@
 ﻿@model IEnumerable<MovieRental.Models.Movie>
+@using Microsoft.AspNetCore.Identity
+@using MovieRental.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Filmy";
 }
 
 <section class="movie-container">
-    @foreach(var item in Model)
-    { //TODO: dodac na klikniecie przekierowanie do widoku szczegolow filmu
-        <div class="movie-card">
-            <img src=@Html.DisplayFor(modelItem => item.ImageUri) />
-            <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Name)</p>
-            <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Genre)</p>
-            @* <p class="movie-card__info">@Html.DisplayFor(modelItem => item.ReleaseDate)</p> *@
-            @* <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Price) zł</p> *@
-            <form>
-                <button type="submit" class="rent-btn idx-btn" asp-controller="Movies1" asp-action="MovieDetailsU" asp-route-id="@item.Id">Zobacz więcej</button>
-            </form>
-        </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @foreach(var item in Model)
+        { //TODO: dodac na klikniecie przekierowanie do widoku szczegolow filmu
+            <div class="movie-card">
+                <img src=@Html.DisplayFor(modelItem => item.ImageUri) />
+                <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Name)</p>
+                <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Genre)</p>
+                @* <p class="movie-card__info">@Html.DisplayFor(modelItem => item.ReleaseDate)</p> *@
+                @* <p class="movie-card__info">@Html.DisplayFor(modelItem => item.Price) zł</p> *@
+                <form>
+                    <button type="submit" class="rent-btn idx-btn" asp-controller="Movies1" asp-action="MovieDetailsU" asp-route-id="@item.Id">Zobacz więcej</button>
+                </form>
+            </div>
+        }
+    } else
+    {
+        <p class="text-white">Zaloguj się aby zobaczyć filmy</p>
     }
+
 </section>
