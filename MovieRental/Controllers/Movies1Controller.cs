@@ -25,7 +25,7 @@ namespace MovieRental.Controllers
             return View(await _context.Movie.ToListAsync());
         }
 
-        public async Task<IActionResult> ShowAllMovies()
+        public async Task<IActionResult> ShowAdminPanel()
         {
             return View(await _context.Movie.ToListAsync());
         }

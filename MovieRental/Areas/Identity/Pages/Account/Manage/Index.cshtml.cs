@@ -56,8 +56,18 @@ namespace MovieRental.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
+            [StringLength(100, ErrorMessage = "{0} musi mieć minimalnie {2} i maksymalnie {1} znaków.", MinimumLength = 1)]
+            [Display(Name = "Imie")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "{0} musi mieć minimalnie {2} i maksymalnie {1} znaków.", MinimumLength = 1)]
+            [Display(Name = "Nazwisko")]
+            public string LastName { get; set; }
+
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Numer")]
             public string PhoneNumber { get; set; }
         }
 
@@ -70,7 +80,9 @@ namespace MovieRental.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
@@ -99,6 +111,10 @@ namespace MovieRental.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
+
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            await _userManager.UpdateAsync(user);
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
