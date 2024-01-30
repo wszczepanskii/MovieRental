@@ -11,7 +11,7 @@ using MovieRental.Models;
 
 namespace MovieRental.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
+    
     public class Movies1Controller : Controller
     {
         private readonly MovieRentalContext _context;
