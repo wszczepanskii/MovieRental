@@ -6,22 +6,24 @@
 @inject UserManager<AppUser> UserManager
 
 @{
-    ViewData["Title"] = "Filmy";
+    ViewData["Title"] = "Adres wysyłki";
 }
 
 <section class="movie-details text-white rent-details">
     <div style="width: 50%;" class="movie-info">
         <h2 class="movie-info__h">Wypożyczany tytuł:</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.Name)</p>
+        <h2 class="movie-info__h">Cena:</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Price) zł</p>
         <p class="fs-2 mb-3 text-center">Dane wysyłki</p>
         <label class="fs-2" for="city-input">Miasto:</label>
-        <p class="text-danger error">Pole nie może być puste</p>
+        <p class="error">Pole nie może być puste</p>
         <input required placeholder="Miasto" class="mb-3 ship-adress city" id="city-input" type="text" />
         <label class="fs-2" for="street-input">Ulica:</label>
-        <p class="text-danger error">Pole nie może być puste</p>
+        <p class="error">Pole nie może być puste</p>
         <input required placeholder="Ulica" class="mb-3 ship-adress street" id="street-input" type="text" />
         <label class="fs-2" for="postal-input">Kod pocztowy:</label>
-        <p class="text-danger error">Pole nie może być puste</p>
+        <p class="error">Pole nie może być puste</p>
         <input type="text" id="postal" class="postalcode ship-adress mb-3" placeholder="Kod pocztowy" maxlength="6">
         <button type="submit" class="rent-btn ship-btn">Wyślij</button>
     </div>
