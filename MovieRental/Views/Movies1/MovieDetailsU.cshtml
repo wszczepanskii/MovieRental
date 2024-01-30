@@ -1,4 +1,8 @@
 ﻿@model MovieRental.Models.Movie;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
@@ -6,7 +10,7 @@
 
 <section class="movie-details text-white ">
     <div class="movie-details__img" style="height: 100%;">
-      <img src=@Html.DisplayFor(model => model.ImageUri) height="500" width="400"/>
+      <img src=@Html.DisplayFor(model => model.ImageUri) height="500" width="500"/>
     </div>
     <div style="width: 50%;" class="movie-info">
         <h2 class="movie-info__h">Tytuł</h2>
@@ -19,9 +23,11 @@
         <p class="movie-info__text">@Html.DisplayFor(model => model.Price) zł</p>
         <h2 class="movie-info__h">Data premiry</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.ReleaseDate)</p>
-        <form>
-            <button type="submit" asp-controller="Movies1" asp-action="RentMovie" asp-route-id="@Model.Id" class="rent-btn">Wypożycz</button>
-        </form>
+         @if (SignInManager.IsSignedIn(User)){
+            <form>
+                <button type="submit" asp-controller="Movies1" asp-action="RentMovie" asp-route-id="@Model.Id" class="rent-btn">Wypożycz</button>
+            </form>
+         }
     </div>
     <div style="width: 50%;" class="movie-info">
         <h2 class="movie-info__h">Opis</h2>
