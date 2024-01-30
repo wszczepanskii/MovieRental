@@ -4,19 +4,27 @@
     ViewData["Title"] = "Details";
 }
 
-<section class="movie-details text-white">
+<section class="movie-details text-white ">
     <div class="movie-details__img" style="height: 100%;">
       <img src=@Html.DisplayFor(model => model.ImageUri) height="500" width="400"/>
     </div>
-    <div class="movie-info">
+    <div style="width: 50%;" class="movie-info">
         <h2 class="movie-info__h">Tytuł</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.Name)</p>
+        <h2 class="movie-info__h">Aktorzy</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Actors)</p>
         <h2 class="movie-info__h">Gatunek</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.Genre)</p>
         <h2 class="movie-info__h">Cena wypożyczenia</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.Price) zł</p>
         <h2 class="movie-info__h">Data premiry</h2>
         <p class="movie-info__text">@Html.DisplayFor(model => model.ReleaseDate)</p>
-        <button class="rent-btn">Wypożycz</button>
+        <form>
+            <button type="submit" asp-controller="Movies1" asp-action="RentMovie" asp-route-id="@Model.Id" class="rent-btn">Wypożycz</button>
+        </form>
+    </div>
+    <div style="width: 50%;" class="movie-info">
+        <h2 class="movie-info__h">Opis</h2>
+        <p class="movie-info__text">@Html.DisplayFor(model => model.Description)</p>
     </div>
 </section>

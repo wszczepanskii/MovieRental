@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MovieRental.Models;
 
 namespace MovieRental.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class Movies1Controller : Controller
     {
         private readonly MovieRentalContext _context;
@@ -25,6 +27,7 @@ namespace MovieRental.Controllers
             return View(await _context.Movie.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ShowAdminPanel()
         {
             return View(await _context.Movie.ToListAsync());
@@ -49,6 +52,23 @@ namespace MovieRental.Controllers
         }
 
         public async Task<IActionResult> MovieDetailsU(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IActionResult> RentMovie(int? id)
         {
             if (id == null)
             {
@@ -108,7 +128,7 @@ namespace MovieRental.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Genre,Price,ReleaseDate,ImageUri")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Genre,Price,ReleaseDate,Actors,Description,ImageUri")] Movie movie)
         {
             if (id != movie.Id)
             {

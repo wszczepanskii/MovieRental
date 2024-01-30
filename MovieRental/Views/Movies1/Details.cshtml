@@ -1,13 +1,13 @@
 ﻿@model MovieRental.Models.Movie
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły";
 }
 
-<h1 class="text-white">Details</h1>
+<h1 class="text-white">Szczegóły</h1>
 
 <div>
-    <h4 class="text-white">Movie</h4>
+    <h4 class="text-white">Film</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2 text-white">
@@ -35,6 +35,18 @@
             @Html.DisplayFor(model => model.ReleaseDate)
         </dd>
         <dt class="col-sm-2 text-white">
+            @Html.DisplayNameFor(model => model.Actors)
+        </dt>
+        <dd class="col-sm-10 text-white">
+            @Html.DisplayFor(model => model.Actors)
+        </dd>
+        <dt class="col-sm-2 text-white">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10 text-white">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2 text-white">
             @Html.DisplayNameFor(model => model.ImageUri)
         </dt>
         <dd class="col-sm-10 text-white">
@@ -43,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="ShowAdminPanel">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edytuj</a> |
+    <a asp-action="ShowAdminPanel">Powrót</a>
 </div>

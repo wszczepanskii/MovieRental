@@ -16,7 +16,7 @@ builder.Services.AddDbContext<MovieRentalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieRentalContext") ?? throw new InvalidOperationException("Connection string 'MovieRentalContext' not found.")));
 
 builder.Services.AddDefaultIdentity<AppUser>(
-    options => options.SignIn.RequireConfirmedAccount = true
+    options => options.SignIn.RequireConfirmedAccount = false
 )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MovieRentalContext>();
@@ -54,5 +54,40 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Movies1}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using(var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "Admin", "User" };
+
+    foreach (var role in roles)
+    {
+        if(!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+
+    string email = "admin@admin.com";
+    string password = "Admin123!";
+
+    if(await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new AppUser();
+        user.Email = email;
+        user.UserName = email;
+        user.EmailConfirmed = true;
+        
+        await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "Admin");
+    }
+}
 
 app.Run();
