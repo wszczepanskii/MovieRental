@@ -42,13 +42,8 @@ const inputEvent = (event) => {
 
 const showError = (input) => {
     const errorP = input.previousElementSibling 
-    //const formBox = input.parentElement;
-    //const errorMsg = formBox.querySelector(".error-text");
 
     errorP.classList.add("show-error")
-
-    //formBox.classList.add("error");
-    //errorMsg.textContent = msg;
 };
 
 const clearError = (input) => {
@@ -66,9 +61,16 @@ const checkForm = (input) => {
     });
 };
 
+//const checkLength = (input) => {
+//    if (input.value.length < 6) {
+//        showError(input)
+//    }
+//}
+
 shipBtn.addEventListener("click", (e) => {
     e.preventDefault();
     checkForm([city, street, postalInput]);
+    //checkLength(postalInput)
 
     errorCount = 0;
 
@@ -78,10 +80,7 @@ shipBtn.addEventListener("click", (e) => {
         }
     })
 
-    console.log(errorCount)
-
     if (errorCount === 0) {
-        console.log("dadasd")
         popup.style.display = "block"
     }
 })
